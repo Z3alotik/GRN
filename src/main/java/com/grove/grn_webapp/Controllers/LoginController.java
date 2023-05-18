@@ -1,7 +1,7 @@
 package com.grove.grn_webapp.Controllers;
 
-import com.grove.grn_webapp.RequestBodies.UserRegisterData;
-import com.grove.grn_webapp.Services.RegistrationService;
+import com.grove.grn_webapp.RequestBodies.UserLoginData;
+import com.grove.grn_webapp.Services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "api/v1/account")
-public class RegistrationController {
+public class LoginController {
 
     @Autowired
-    RegistrationService registrationService;
+    LoginService loginService;
 
-    @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserRegisterData userRegisterData) {
-        return registrationService.signUp(userRegisterData);
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserLoginData userLoginData) {
+        return loginService.login(userLoginData);
     }
 }

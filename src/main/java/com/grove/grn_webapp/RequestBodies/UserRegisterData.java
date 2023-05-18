@@ -1,6 +1,6 @@
 package com.grove.grn_webapp.RequestBodies;
 
-public class UserData {
+public class UserRegisterData {
     private String name;
     private String surname;
     private String email;
