@@ -1,7 +1,6 @@
-package com.grove.grn_webapp.RequestBodies;
+package com.grove.grn_webapp.Dto;
 
-public class UserLoginData {
-
+public class LoginDTO {
     private String email;
     private String password;
 

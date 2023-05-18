@@ -1,11 +1,11 @@
 package com.grove.grn_webapp.Services;
 
-import com.grove.grn_webapp.Enums.RoleName;
+import com.grove.grn_webapp.Dto.UserDTO;
 import com.grove.grn_webapp.Model.User;
 import com.grove.grn_webapp.Repositories.UserRepository;
-import com.grove.grn_webapp.RequestBodies.UserRegisterData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,23 +14,27 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Autowired
     UserRepository userRepository;
 
-    @Override
-    public ResponseEntity<String> signUp(UserRegisterData userRegisterData) {
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
-        if (userRegisterData.getEmail() == null || userRegisterData.getEmail().isEmpty()) {
+    @Override
+    public ResponseEntity<String> signUp(UserDTO userDTO) {
+
+        if (userDTO.getEmail() == null || userDTO.getEmail().isEmpty()) {
             return ResponseEntity.badRequest().body("Email is required!");
         }
 
-        User existingUser = userRepository.findByEmail(userRegisterData.getEmail());
+        User existingUser = userRepository.findByEmail(userDTO.getEmail());
         if (existingUser != null) {
             return ResponseEntity.badRequest().body("A user with this email already exists!");
         }
 
         User newUser = new User();
-        newUser.setName(userRegisterData.getName());
-        newUser.setSurname(userRegisterData.getSurname());
-        newUser.setEmail(userRegisterData.getEmail());
-        newUser.setPassword(userRegisterData.getPassword());
+        newUser.setName(userDTO.getName());
+        newUser.setSurname(userDTO.getSurname());
+        newUser.setEmail(userDTO.getEmail());
+        newUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+
 
         User savedUser = userRepository.save(newUser);
 
