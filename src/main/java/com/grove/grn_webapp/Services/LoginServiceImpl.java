@@ -1,11 +1,9 @@
 package com.grove.grn_webapp.Services;
 
 import com.grove.grn_webapp.Dto.LoginDTO;
-import com.grove.grn_webapp.Dto.UserDTO;
 import com.grove.grn_webapp.Model.User;
 import com.grove.grn_webapp.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,7 +31,7 @@ public class LoginServiceImpl implements LoginService {
             if (checkUser.isPresent()) {
                 return ResponseEntity.ok("{\"message\": \"Login success!\"}");
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email not exists!");
+                return ResponseEntity.badRequest().body("{\"message\": \"Email not exists!\"}");
             }
         } else {
             return ResponseEntity.badRequest().body("Password mismatch");
