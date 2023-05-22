@@ -1,8 +1,9 @@
-package com.grove.grn_webapp.Services;
+package com.grove.grn_webapp.Services.ServiceImpl;
 
 import com.grove.grn_webapp.Dto.LoginDTO;
 import com.grove.grn_webapp.Model.User;
 import com.grove.grn_webapp.Repositories.UserRepository;
+import com.grove.grn_webapp.Services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;

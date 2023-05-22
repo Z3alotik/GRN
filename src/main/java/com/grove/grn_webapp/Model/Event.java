@@ -1,30 +1,28 @@
 package com.grove.grn_webapp.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "events")
-@NoArgsConstructor
 @Getter
 @Setter
 @ToString
+@Builder
+@AllArgsConstructor
 public class Event {
 
     @Id
     @GeneratedValue
     private Long id;
     private String title;
-    private String address;
+
+    @Embedded
+    private Address address;
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalTime startTime;
@@ -33,16 +31,6 @@ public class Event {
     private int entryPrice;
     private String description;
 
-    public Event(String title, String address, LocalDate startDate, LocalDate endDate, LocalTime startTime,
-                 LocalTime endTime, int capacity, int entryPrice, String description) {
-        this.title = title;
-        this.address = address;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.capacity = capacity;
-        this.entryPrice = entryPrice;
-        this.description = description;
-    }
+    @ManyToMany(mappedBy = "events")
+    private List<User> guests;
 }
