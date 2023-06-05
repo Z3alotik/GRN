@@ -1,17 +1,17 @@
 package com.grove.grn_webapp.Model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
-@NoArgsConstructor
+@Builder
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
 public class User  {
 
     @Id
@@ -22,10 +22,9 @@ public class User  {
     private String email;
     private String password;
 
-    public User(String name, String surname, String email, String password) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
-    }
+    @ManyToMany
+    @JoinTable(name = "event_guests",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<Event> events;
 }
