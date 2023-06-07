@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class User  {
 
     @Id
@@ -27,4 +28,7 @@ public class User  {
             joinColumns = @JoinColumn(name = "event_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<Event> events;
+
+    @OneToMany(mappedBy = "user")
+    private List<SongRequest> songRequests;
 }

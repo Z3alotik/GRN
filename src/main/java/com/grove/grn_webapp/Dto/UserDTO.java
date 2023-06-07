@@ -1,14 +1,11 @@
 package com.grove.grn_webapp.Dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
         private String name;
         private String surname;
